@@ -1,0 +1,113 @@
+[
+  {
+    "id": "menemen",
+    "title": "Klasik Menemen",
+    "category": "Kahvaltı",
+    "difficulty": "Kolay",
+    "timeMinutes": 15,
+    "rating": 4.6,
+    "image": "",
+    "ingredients": [
+      "3 adet yumurta",
+      "2 adet domates",
+      "1 adet yeşil biber",
+      "1 yemek kaşığı tereyağı",
+      "Tuz, karabiber"
+    ],
+    "steps": [
+      "Biberi doğrayıp tereyağında yumuşayana kadar soteleyin.",
+      "Doğranmış domatesi ekleyip suyunu salıp çekene kadar pişirin.",
+      "Yumurtaları ekleyip karıştırarak pişirin, tuz ve karabiber ekleyin."
+    ],
+    "tags": ["yumurta", "domates", "kahvaltı"]
+  },
+  {
+    "id": "mercimek-corbasi",
+    "title": "Kırmızı Mercimek Çorbası",
+    "category": "Çorba",
+    "difficulty": "Kolay",
+    "timeMinutes": 30,
+    "rating": 4.8,
+    "image": "",
+    "ingredients": [
+      "1 su bardağı kırmızı mercimek",
+      "1 adet soğan",
+      "1 yemek kaşığı un",
+      "1 yemek kaşığı tereyağı",
+      "5 su bardağı su/et suyu",
+      "Tuz, kimyon"
+    ],
+    "steps": [
+      "Soğanı kavurun, unu ekleyip hafifçe kokusu çıkana kadar çevirin.",
+      "Yıkanmış mercimek ve suyu ekleyip mercimekler dağılana kadar pişirin.",
+      "Blenderdan geçirin, tuz ve kimyon ile tatlandırın."
+    ],
+    "tags": ["mercimek", "çorba", "pratik"]
+  },
+  {
+    "id": "firinda-somon",
+    "title": "Fırında Somon",
+    "category": "Ana Yemek",
+    "difficulty": "Orta",
+    "timeMinutes": 25,
+    "rating": 4.7,
+    "image": "",
+    "ingredients": [
+      "2 dilim somon",
+      "1 diş sarımsak",
+      "Zeytinyağı, limon",
+      "Tuz, karabiber"
+    ],
+    "steps": [
+      "Somonu zeytinyağı, sarımsak ve limonla marine edin.",
+      "Önceden ısıtılmış 200°C fırında 15-18 dakika pişirin.",
+      "Tuz ve karabiber ile servis edin."
+    ],
+    "tags": ["balık", "fırın", "sağlıklı"]
+  },
+  {
+    "id": "sebzeli-kuskus",
+    "title": "Sebzeli Kuskus Salatası",
+    "category": "Salata",
+    "difficulty": "Kolay",
+    "timeMinutes": 20,
+    "rating": 4.4,
+    "image": "",
+    "ingredients": [
+      "1 su bardağı kuskus",
+      "Salatalık, domates, mısır",
+      "Zeytinyağı, limon",
+      "Tuz"
+    ],
+    "steps": [
+      "Kuskusu haşlayın ve soğutun.",
+      "Sebzeleri doğrayıp kuskusla karıştırın.",
+      "Zeytinyağı, limon ve tuz ile tatlandırın."
+    ],
+    "tags": ["vegan", "pratik", "serin"]
+  },
+  {
+    "id": "brownie",
+    "title": "Yoğun Çikolatalı Brownie",
+    "category": "Tatlı",
+    "difficulty": "Orta",
+    "timeMinutes": 35,
+    "rating": 4.9,
+    "image": "",
+    "ingredients": [
+      "200 g bitter çikolata",
+      "150 g tereyağı",
+      "3 adet yumurta",
+      "1 su bardağı şeker",
+      "3/4 su bardağı un",
+      "Bir tutam tuz"
+    ],
+    "steps": [
+      "Çikolatayı tereyağıyla benmari usulü eritin.",
+      "Yumurta ve şekeri çırpın, çikolatalı karışımı ekleyin.",
+      "Un ve tuzu ekleyip 170°C'de 20-25 dk pişirin."
+    ],
+    "tags": ["çikolata", "fırın", "tatlı"]
+  }
+]
+

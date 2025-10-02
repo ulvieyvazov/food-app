@@ -1,8 +1,14 @@
 import React from 'react';
+import SEO from '../components/SEO.jsx';
 
 function About() {
   return (
     <div className="about-page">
+      <SEO 
+        title="Hakkında | Yemek Tarifleri"
+        description="Lezzet Durağı: pratik ve lezzetli yemek tarifleri paylaşan topluluk."
+        canonical="https://www.ornek-site.com/about"
+      />
       <h1>📖 Hakkımızda</h1>
       
       <p>

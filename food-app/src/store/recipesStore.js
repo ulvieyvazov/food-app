@@ -1,6 +1,8 @@
 const STORAGE_KEY = 'recipes_store_v1';
 const DELETED_KEY = 'recipes_deleted_v1';
 const OVERRIDES_KEY = 'recipes_overrides_v1';
+const FAVORITES_KEY = 'user_favorites_v1';
+const RATINGS_KEY = 'recipe_ratings_v1';
 
 function loadStoredRecipes() {
   try {
@@ -49,6 +51,34 @@ function loadOverrides() {
 
 function saveOverrides(overrides) {
   localStorage.setItem(OVERRIDES_KEY, JSON.stringify(overrides));
+}
+
+function readFavoritesMap() {
+  try {
+    const raw = localStorage.getItem(FAVORITES_KEY);
+    const parsed = raw ? JSON.parse(raw) : {};
+    return parsed && typeof parsed === 'object' ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+function writeFavoritesMap(map) {
+  localStorage.setItem(FAVORITES_KEY, JSON.stringify(map));
+}
+
+function readRatingsMap() {
+  try {
+    const raw = localStorage.getItem(RATINGS_KEY);
+    const parsed = raw ? JSON.parse(raw) : {};
+    return parsed && typeof parsed === 'object' ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+function writeRatingsMap(map) {
+  localStorage.setItem(RATINGS_KEY, JSON.stringify(map));
 }
 
 function getNextId(staticRecipes, storedRecipes) {
@@ -226,4 +256,57 @@ export function deleteComment(staticRecipes, id, commentIndex) {
   overrides[String(id)] = ov;
   saveOverrides(overrides);
   return true;
+}
+
+// Favorites API
+export function getFavoritesForUser(username) {
+  if (!username) return [];
+  const map = readFavoritesMap();
+  const list = map[username];
+  return Array.isArray(list) ? list : [];
+}
+
+export function isFavorite(username, recipeId) {
+  return getFavoritesForUser(username).some(id => String(id) === String(recipeId));
+}
+
+export function toggleFavorite(username, recipeId) {
+  if (!username) return false;
+  const map = readFavoritesMap();
+  const list = Array.isArray(map[username]) ? map[username] : [];
+  const idStr = String(recipeId);
+  const exists = list.some(id => String(id) === idStr);
+  map[username] = exists ? list.filter(id => String(id) !== idStr) : [...list, recipeId];
+  writeFavoritesMap(map);
+  return !exists;
+}
+
+// Ratings API
+export function getUserRating(username, recipeId) {
+  if (!username) return 0;
+  const map = readRatingsMap();
+  const perRecipe = map[String(recipeId)] || {};
+  const val = perRecipe[username];
+  return typeof val === 'number' ? val : 0;
+}
+
+export function setUserRating(username, recipeId, rating) {
+  if (!username) return false;
+  const r = Math.max(1, Math.min(5, Number(rating) || 0));
+  const map = readRatingsMap();
+  const key = String(recipeId);
+  const perRecipe = map[key] && typeof map[key] === 'object' ? map[key] : {};
+  perRecipe[username] = r;
+  map[key] = perRecipe;
+  writeRatingsMap(map);
+  return true;
+}
+
+export function getAverageRating(recipeId) {
+  const map = readRatingsMap();
+  const perRecipe = map[String(recipeId)] || {};
+  const values = Object.values(perRecipe).filter(v => typeof v === 'number');
+  if (!values.length) return { average: 0, count: 0 };
+  const sum = values.reduce((a, b) => a + b, 0);
+  return { average: sum / values.length, count: values.length };
 }

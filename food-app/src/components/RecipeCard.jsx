@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { getAverageRating } from '../store/recipesStore.js';
 
 function RecipeCard({ recipe }) {
+  const rating = useMemo(() => getAverageRating(recipe.id), [recipe.id]);
+  const rounded = Math.round(rating.average * 10) / 10;
+
   return (
     <Link to={`/recipe/${recipe.id}`} className="recipe-card">
       <img 
@@ -14,7 +18,7 @@ function RecipeCard({ recipe }) {
         <p className="recipe-card-category">{recipe.category}</p>
         <div className="recipe-card-info">
           <span>⏱️ {recipe.time}</span>
-          <span>🍽️ {recipe.servings} kişilik</span>
+          <span>⭐ {rounded || 0} ({rating.count})</span>
         </div>
       </div>
     </Link>

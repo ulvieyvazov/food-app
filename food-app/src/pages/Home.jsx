@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import SEO from '../components/SEO.jsx';
 import RecipeCard from '../components/RecipeCard.jsx';
 import { recipes as staticRecipes } from '../data/recipes';
 import { getAllRecipes } from '../store/recipesStore.js';
@@ -13,6 +14,12 @@ function Home() {
 
   return (
     <div className="home-page">
+      <SEO 
+        title="Yemek Tarifleri | En Yeni ve Pratik Tarifler"
+        description="Yemek tarifleri, pratik yemekler, tatlılar ve yöresel lezzetler. En yeni ve beğenilen tarifleri keşfedin."
+        canonical="https://www.ornek-site.com/"
+        ogImage="/vite.svg"
+      />
       <div className="home-header">
         <h1>🍳 Lezzet Durağı'na Hoş Geldiniz!</h1>
         <p>En sevdiğiniz tarifleri keşfedin ve mutfağınızı şenlendirin</p>
@@ -22,6 +29,9 @@ function Home() {
         <input
           type="text"
           className="search-input"
+          id="home-search"
+          name="search"
+          autoComplete="off"
           placeholder="🔍 Tarif ara... (örn: mercimek, mantı)"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}

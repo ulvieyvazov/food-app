@@ -1,4 +1,5 @@
 import React from 'react';
+// Removed react-helmet-async due to peer dependency conflict with React 19
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar.jsx';
 import SideRailAds from './components/SideRailAds.jsx';

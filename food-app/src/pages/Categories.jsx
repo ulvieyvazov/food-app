@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import SEO from '../components/SEO.jsx';
 import { Link, useParams } from 'react-router-dom';
 import RecipeCard from '../components/RecipeCard.jsx';
 import { recipes as staticRecipes } from '../data/recipes';
@@ -23,6 +24,11 @@ function Categories() {
   if (category) {
     return (
       <div className="categories-page">
+        <SEO 
+          title={`${category} Yemek Tarifleri | Kategoriler`}
+          description={`${category} kategorisindeki en yeni ve pratik yemek tarifleri.`}
+          canonical={`https://www.ornek-site.com/categories/${category}`}
+        />
         <h1>{category} Tarifleri</h1>
         {filteredRecipes.length > 0 ? (
           <div className="recipes-grid">
@@ -56,6 +62,11 @@ function Categories() {
 
   return (
     <div className="categories-page">
+      <SEO 
+        title="Kategoriler | Yemek Tarifleri"
+        description="Çorbalar, ana yemekler, tatlılar ve içecekler dahil tüm yemek kategorileri."
+        canonical="https://www.ornek-site.com/categories"
+      />
       <h1>📚 Kategoriler</h1>
 
       <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'1.5rem' }}>

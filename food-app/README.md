@@ -1,3 +1,32 @@
+## Email Doğrulama Sunucusu
+
+Geliştirme için basit bir e‑posta gönderim sunucusu eklendi. Aşağıdaki sağlayıcılardan birini .env ile seçin:
+
+```
+EMAIL_PROVIDER=smtp # veya sendgrid / resend
+FROM_EMAIL="Lezzet Duragi <no-reply@example.com>"
+
+# SMTP için
+SMTP_HOST=smtp.example.com
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=your_smtp_user
+SMTP_PASS=your_smtp_pass
+
+# SendGrid için
+SENDGRID_API_KEY=SG.xxxxxx
+
+# Resend için
+RESEND_API_KEY=re_xxxxxx
+```
+
+Çalıştırma:
+
+```
+npm run server   # 4000 portunda API
+npm run dev      # 5173 portunda Vite; /api istekleri 4000'e proxylenir
+```
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

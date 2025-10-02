@@ -291,6 +291,10 @@ body {
   margin-top: 0.5rem;
 }
 
+.star-btn:hover {
+  filter: brightness(1.1);
+}
+
 .recipe-detail-section {
   margin-bottom: 1.75rem;
 }

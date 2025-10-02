@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { register, getCurrentUser } from '../store/authStore.js';
+import { registerSimple, getCurrentUser } from '../store/authStore.js';
 
 function Register() {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ username: '', password: '', confirm: '' });
+  const [form, setForm] = useState({ username: '', email: '', password: '', confirm: '' });
   const [error, setError] = useState('');
+  const [info, setInfo] = useState('');
   const [show1, setShow1] = useState(false);
   const [show2, setShow2] = useState(false);
+  const [step, setStep] = useState(1);
+  const [code, setCode] = useState('');
 
   useEffect(() => {
     const user = getCurrentUser();
@@ -22,8 +25,20 @@ function Register() {
   function handleSubmit(e) {
     e.preventDefault();
     setError('');
-    if (!form.username.trim() || !form.password || !form.confirm) {
+    if (!form.username.trim() || !form.email.trim() || !form.password || !form.confirm) {
       setError('Tüm alanlar gereklidir');
+      return;
+    }
+    if (form.username.trim().length < 3) {
+      setError('Kullanıcı adı en az 3 karakter olmalıdır');
+      return;
+    }
+    if (form.password.length < 5) {
+      setError('Parola en az 5 karakter olmalıdır');
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      setError('Geçerli bir e-posta giriniz');
       return;
     }
     if (form.password !== form.confirm) {
@@ -31,7 +46,7 @@ function Register() {
       return;
     }
     try {
-      register(form.username.trim(), form.password);
+      registerSimple(form.username.trim(), form.email.trim(), form.password);
       navigate('/');
     } catch (err) {
       setError(err.message || 'Kayıt başarısız');
@@ -83,8 +98,29 @@ function Register() {
           <div>
             <label style={{ display: 'block', marginBottom: '0.4rem', fontWeight: '500' }}>Kullanıcı Adı</label>
             <input
+              id="register-username"
               name="username"
               value={form.username}
+              onChange={handleChange}
+              required
+              style={{
+                width: '100%',
+                padding: '0.75rem 1rem',
+                borderRadius: '8px',
+                border: '1px solid #d1d5db',
+                fontSize: '1rem',
+                outline: 'none'
+              }}
+            />
+          </div>
+
+          <div>
+            <label style={{ display: 'block', marginBottom: '0.4rem', fontWeight: '500' }}>E-posta</label>
+            <input
+              name="email"
+              type="email"
+              id="register-email"
+              value={form.email}
               onChange={handleChange}
               required
               style={{
@@ -103,6 +139,7 @@ function Register() {
             <div style={{ display: 'flex', gap: '0.5rem' }}>
               <input
                 type={show1 ? 'text' : 'password'}
+                id="register-password"
                 name="password"
                 value={form.password}
                 onChange={handleChange}
@@ -139,6 +176,7 @@ function Register() {
             <div style={{ display: 'flex', gap: '0.5rem' }}>
               <input
                 type={show2 ? 'text' : 'password'}
+                id="register-confirm"
                 name="confirm"
                 value={form.confirm}
                 onChange={handleChange}
@@ -170,6 +208,8 @@ function Register() {
             </div>
           </div>
 
+          {/* Doğrulama kodu kaldırıldı */}
+
           <div>
             <button
               type="submit"
@@ -192,6 +232,7 @@ function Register() {
             </button>
           </div>
         </form>
+        
 
         <p style={{ marginTop: '1.2rem', textAlign: 'center', fontSize: '0.95rem' }}>
           Hesabın var mı?{' '}

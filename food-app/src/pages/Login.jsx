@@ -78,6 +78,7 @@ function Login() {
           <div>
             <label style={{ display: 'block', marginBottom: '0.4rem', fontWeight: '500' }}>Kullanıcı Adı</label>
             <input
+              id="login-username"
               name="username"
               value={form.username}
               onChange={handleChange}
@@ -98,6 +99,7 @@ function Login() {
             <div style={{ display: 'flex', gap: '0.5rem' }}>
               <input
                 type={show ? 'text' : 'password'}
+                id="login-password"
                 name="password"
                 value={form.password}
                 onChange={handleChange}

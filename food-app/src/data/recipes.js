@@ -158,7 +158,185 @@ export const recipes = [
       { user: "Hülya", text: "Bayram günü yaptım, harika oldu!" },
       { user: "Oğuz", text: "Şerbet miktarını azaltabilir miyim?" }
     ]
+  },
+  // Yeni Ülke Kategorileri
+  {
+    id: 7,
+    name: "Düşbere",
+    category: "Azerbaycan",
+    image: "https://images.unsplash.com/photo-1603133872759-8b9d06d0d28c?w=500",
+    time: "60 dk",
+    servings: 4,
+    ingredients: [
+      "Kıyma",
+      "Un",
+      "Soğan",
+      "Et suyu",
+      "Tuz, karabiber"
+    ],
+    instructions: [
+      "Hamuru yoğurun ve küçük kareler açın.",
+      "İçine kıymalı harç koyup kapatın.",
+      "Et suyunda haşlayın ve sıcak servis edin."
+    ],
+    comments: []
+  },
+  {
+    id: 8,
+    name: "Şah Pilavı",
+    category: "Azerbaycan",
+    image: "https://images.unsplash.com/photo-1505577058444-a3dab90d4253?w=500",
+    time: "120 dk",
+    servings: 6,
+    ingredients: [
+      "Pirinç",
+      "Kuzu eti",
+      "Kuru meyve",
+      "Safran",
+      "Yufka"
+    ],
+    instructions: [
+      "Pirinçi haşlayın, eti ve kuru meyveleri hazırlayın.",
+      "Yufka ile kaplı tencerede kat kat dizin.",
+      "Fırında pişirip dilimleyerek servis edin."
+    ],
+    comments: []
+  },
+  {
+    id: 9,
+    name: "Adana Kebap",
+    category: "Türkiye",
+    image: "https://images.unsplash.com/photo-1625944520303-2bb96f8a17f1?w=500",
+    time: "45 dk",
+    servings: 4,
+    ingredients: [
+      "Kıyma",
+      "Pul biber",
+      "Tuz",
+      "Soğan",
+      "Şiş"
+    ],
+    instructions: [
+      "Kıymayı baharatlarla yoğurun.",
+      "Şişe saplayıp ızgarada pişirin.",
+      "Pide ve sumaklı soğanla servis edin."
+    ],
+    comments: []
+  },
+  {
+    id: 10,
+    name: "Lahmacun",
+    category: "Türkiye",
+    image: "https://images.unsplash.com/photo-1603072386764-1a2baa5820a9?w=500",
+    time: "60 dk",
+    servings: 6,
+    ingredients: [
+      "Hamur",
+      "Kıyma",
+      "Domates, biber",
+      "Maydanoz",
+      "Baharat"
+    ],
+    instructions: [
+      "Hamuru açın, kıymalı harcı sürün.",
+      "Yüksek ısıda fırında pişirin.",
+      "Roka ve limonla servis edin."
+    ],
+    comments: []
+  },
+  {
+    id: 11,
+    name: "Moussaka",
+    category: "Yunanistan",
+    image: "https://images.unsplash.com/photo-1604908176901-3ae0d74e03df?w=500",
+    time: "90 dk",
+    servings: 6,
+    ingredients: [
+      "Patlıcan",
+      "Kıyma",
+      "Beşamel sos",
+      "Domates",
+      "Soğan"
+    ],
+    instructions: [
+      "Patlıcanları kızartın.",
+      "Kıymayı sosla pişirin.",
+      "Kat kat dizip beşamel ile kaplayın ve fırınlayın."
+    ],
+    comments: []
+  },
+  {
+    id: 12,
+    name: "Yaprak Sarma (Dolmades)",
+    category: "Yunanistan",
+    image: "https://images.unsplash.com/photo-1574484284002-952d92456975?w=500",
+    time: "80 dk",
+    servings: 6,
+    ingredients: [
+      "Asma yaprağı",
+      "Pirinç",
+      "Soğan",
+      "Zeytinyağı",
+      "Limon"
+    ],
+    instructions: [
+      "İç harcı hazırlayın.",
+      "Yapraklara sarın.",
+      "Düşük ısıda zeytinyağında pişirin."
+    ],
+    comments: []
+  },
+  {
+    id: 13,
+    name: "Spaghetti Carbonara",
+    category: "İtalya",
+    image: "https://images.unsplash.com/photo-1523986371872-9d3ba2e2f642?w=500",
+    time: "25 dk",
+    servings: 2,
+    ingredients: [
+      "Spagetti",
+      "Yumurta",
+      "Pancetta/Guanciale",
+      "Peynir",
+      "Karabiber"
+    ],
+    instructions: [
+      "Spagettiyi haşlayın.",
+      "Pancetta'yı kavurun.",
+      "Yumurta ve peyniri karıştırıp sıcak makarna ile bağlayın."
+    ],
+    comments: []
+  },
+  {
+    id: 14,
+    name: "Margherita Pizza",
+    category: "İtalya",
+    image: "https://images.unsplash.com/photo-1548365328-9f547fb0950c?w=500",
+    time: "30 dk",
+    servings: 2,
+    ingredients: [
+      "Pizza hamuru",
+      "Domates sos",
+      "Mozzarella",
+      "Fesleğen",
+      "Zeytinyağı"
+    ],
+    instructions: [
+      "Hamuru açın ve sos sürün.",
+      "Peynir ve fesleğen ekleyin.",
+      "Yüksek ısıda fırında pişirin."
+    ],
+    comments: []
   }
 ];
 
-export const categories = ["Çorbalar", "Ana Yemekler", "Tatlılar", "İçecekler"];
+export const categories = [
+  "Çorbalar",
+  "Ana Yemekler",
+  "Tatlılar",
+  "İçecekler",
+  "Azerbaycan",
+  "Türkiye",
+  "Yunanistan",
+  "İtalya"
+];

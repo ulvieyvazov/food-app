@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import RecipeCard from '../components/RecipeCard.jsx';
-import { recipes } from '../data/recipes';
+import { recipes as staticRecipes } from '../data/recipes';
+import { getAllRecipes } from '../store/recipesStore.js';
 
 function Home() {
   const [searchTerm, setSearchTerm] = useState('');
+  const allRecipes = useMemo(() => getAllRecipes(staticRecipes), []);
 
-  const filteredRecipes = recipes.filter(recipe =>
+  const filteredRecipes = allRecipes.filter(recipe =>
     recipe.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 

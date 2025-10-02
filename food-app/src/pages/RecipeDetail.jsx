@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useMemo, useState, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { recipes } from '../data/recipes';
+import { recipes as staticRecipes } from '../data/recipes';
+import { getRecipeById, addComment, addReply } from '../store/recipesStore.js';
+import { getCurrentUser } from '../store/authStore.js';
 
 function RecipeDetail() {
   const { id } = useParams();
-  const recipe = recipes.find(r => r.id === parseInt(id));
+  const [version, setVersion] = useState(0);
+  const recipe = useMemo(() => getRecipeById(staticRecipes, id), [id, version]);
+  const user = getCurrentUser();
+
+  const [commentText, setCommentText] = useState('');
+  const [message, setMessage] = useState('');
+  const [replyOpenIndex, setReplyOpenIndex] = useState(null);
+  const [replyText, setReplyText] = useState('');
+  const commentsEndRef = useRef(null);
 
   if (!recipe) {
     return (
@@ -26,6 +36,40 @@ function RecipeDetail() {
         </Link>
       </div>
     );
+  }
+
+  function handleAddComment(e) {
+    e.preventDefault();
+    const text = commentText.trim();
+    if (!text) return;
+    if (!user) return;
+
+    addComment(staticRecipes, recipe.id, { user: user.username, text });
+    setCommentText('');
+    setMessage('Yorum eklendi');
+    setVersion(v => v + 1);
+    setTimeout(() => {
+      if (commentsEndRef.current) {
+        commentsEndRef.current.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 0);
+  }
+
+  function handleAddReply(e, cIndex) {
+    e.preventDefault();
+    const text = replyText.trim();
+    if (!text) return;
+    if (!user) return;
+    addReply(staticRecipes, recipe.id, cIndex, { user: user.username, text });
+    setReplyText('');
+    setReplyOpenIndex(null);
+    setMessage('Cevap eklendi');
+    setVersion(v => v + 1);
+    setTimeout(() => {
+      if (commentsEndRef.current) {
+        commentsEndRef.current.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 0);
   }
 
   return (
@@ -72,8 +116,55 @@ function RecipeDetail() {
             <div key={index} className="comment">
               <p className="comment-user">👤 {comment.user}</p>
               <p>{comment.text}</p>
+
+              {/* Replies */}
+              {Array.isArray(comment.replies) && comment.replies.length > 0 && (
+                <div className="replies">
+                  {comment.replies.map((r, i) => (
+                    <div key={i} className="reply">
+                      <p className="comment-user">↳ {r.user}</p>
+                      <p>{r.text}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Reply action */}
+              {user && (
+                <div style={{ marginTop: '0.5rem' }}>
+                  {replyOpenIndex === index ? (
+                    <form onSubmit={(e) => handleAddReply(e, index)} style={{ display:'grid', gap:'0.5rem' }}>
+                      <textarea value={replyText} onChange={(e) => setReplyText(e.target.value)} rows={3} placeholder="Cevabınız..." />
+                      <div style={{ display:'flex', gap:'0.5rem' }}>
+                        <button type="submit" className="btn" style={{ background:'#10b981', color:'#fff', padding:'0.45rem 0.8rem' }}>Cevabı Gönder</button>
+                        <button type="button" className="btn" style={{ background:'#e5e7eb', color:'#111827', padding:'0.45rem 0.8rem' }} onClick={() => { setReplyOpenIndex(null); setReplyText(''); }}>Vazgeç</button>
+                      </div>
+                    </form>
+                  ) : (
+                    <button className="btn" style={{ background:'#e0e7ff', color:'#4338ca', padding:'0.35rem 0.7rem' }} onClick={() => setReplyOpenIndex(index)}>Cevap Yaz</button>
+                  )}
+                </div>
+              )}
             </div>
           ))}
+          <div ref={commentsEndRef} />
+
+          {user ? (
+            <div style={{ marginTop: '1rem' }}>
+              {message && (
+                <div style={{ background:'#ecfeff', color:'#0369a1', padding:'0.6rem 0.9rem', borderRadius:8, margin:'0 0 1rem' }}>{message}</div>
+              )}
+              <form onSubmit={handleAddComment} style={{ display:'grid', gap:'0.7rem' }}>
+                <label>Yorum Yaz</label>
+                <textarea value={commentText} onChange={(e) => setCommentText(e.target.value)} rows={4} placeholder="Tarif ile ilgili düşünceleriniz..." />
+                <div>
+                  <button type="submit" className="btn" style={{ background:'#4f46e5', color:'#fff', padding:'0.6rem 1rem' }}>Yorumu Gönder</button>
+                </div>
+              </form>
+            </div>
+          ) : (
+            <p style={{ marginTop: '1rem', color:'#6b7280' }}>Yorum yapmak için lütfen giriş yapın.</p>
+          )}
         </div>
 
         <div style={{ textAlign: 'center', marginTop: '2rem' }}>

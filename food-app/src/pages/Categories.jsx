@@ -1,62 +1,94 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import RecipeCard from '../components/RecipeCard.jsx';
-import { recipes, categories } from '../data/recipes';
+import { recipes as staticRecipes } from '../data/recipes';
+import { getAllRecipes } from '../store/recipesStore.js';
+
+const TYPE_CATEGORIES = ["Çorbalar", "Ana Yemekler", "Tatlılar", "İçecekler"];
+const COUNTRY_CATEGORIES = ["Azerbaycan", "Türkiye", "Yunanistan", "İtalya"];
 
 function Categories() {
   const { category } = useParams();
 
+  const allRecipes = useMemo(() => getAllRecipes(staticRecipes), []);
+
   const filteredRecipes = category
-    ? recipes.filter(recipe => recipe.category === category)
+    ? allRecipes.filter(recipe => (
+        COUNTRY_CATEGORIES.includes(category)
+          ? recipe.countryCategory === category
+          : recipe.category === category
+      ))
     : [];
+
+  if (category) {
+    return (
+      <div className="categories-page">
+        <h1>{category} Tarifleri</h1>
+        {filteredRecipes.length > 0 ? (
+          <div className="recipes-grid">
+            {filteredRecipes.map(recipe => (
+              <RecipeCard key={recipe.id} recipe={recipe} />
+            ))}
+          </div>
+        ) : (
+          <p style={{ textAlign: 'center', fontSize: '1.2rem', color: '#666' }}>
+            Bu kategoride henüz tarif yok 😔
+          </p>
+        )}
+        <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+          <Link 
+            to="/categories" 
+            style={{
+              padding: '0.8rem 2rem',
+              background: '#667eea',
+              color: 'white',
+              borderRadius: '8px',
+              textDecoration: 'none',
+              display: 'inline-block'
+            }}
+          >
+            ⬅️ Tüm Kategoriler
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="categories-page">
-      <h1>📚 Tarif Kategorileri</h1>
+      <h1>📚 Kategoriler</h1>
 
-      {!category ? (
-        <div className="categories-grid">
-          {categories.map((cat, index) => (
-            <Link 
-              key={index} 
-              to={`/categories/${cat}`} 
-              className="category-card"
-            >
-              <h3>{cat}</h3>
-            </Link>
-          ))}
-        </div>
-      ) : (
-        <div className="category-recipes">
-          <h2>{category} Tarifleri</h2>
-          {filteredRecipes.length > 0 ? (
-            <div className="recipes-grid">
-              {filteredRecipes.map(recipe => (
-                <RecipeCard key={recipe.id} recipe={recipe} />
-              ))}
-            </div>
-          ) : (
-            <p style={{ textAlign: 'center', fontSize: '1.2rem', color: '#666' }}>
-              Bu kategoride henüz tarif yok 😔
-            </p>
-          )}
-          <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-            <Link 
-              to="/categories" 
-              style={{
-                padding: '0.8rem 2rem',
-                background: '#667eea',
-                color: 'white',
-                borderRadius: '8px',
-                textDecoration: 'none',
-                display: 'inline-block'
-              }}
-            >
-              ⬅️ Tüm Kategoriler
-            </Link>
+      <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'1.5rem' }}>
+        <section>
+          <h2 style={{ marginBottom: '1rem', color:'#4f46e5' }}>Yemek Türleri</h2>
+          <div className="categories-grid">
+            {TYPE_CATEGORIES.map((cat, index) => (
+              <Link 
+                key={index} 
+                to={`/categories/${cat}`} 
+                className="category-card"
+              >
+                <h3>{cat}</h3>
+              </Link>
+            ))}
           </div>
-        </div>
-      )}
+        </section>
+
+        <section>
+          <h2 style={{ marginBottom: '1rem', color:'#4f46e5' }}>Ülkeler</h2>
+          <div className="categories-grid">
+            {COUNTRY_CATEGORIES.map((cat, index) => (
+              <Link 
+                key={index} 
+                to={`/categories/${cat}`} 
+                className="category-card"
+              >
+                <h3>{cat}</h3>
+              </Link>
+            ))}
+          </div>
+        </section>
+      </div>
     </div>
   );
 }

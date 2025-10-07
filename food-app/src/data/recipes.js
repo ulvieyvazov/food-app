@@ -29,33 +29,6 @@ export const recipes = [
     ]
   },
   {
-    id: 2,
-    name: "İmam Bayıldı",
-    category: "Ana Yemekler",
-    image: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=500",
-    time: "60 dk",
-    servings: 6,
-    ingredients: [
-      "6 adet patlıcan",
-      "4 adet domates",
-      "3 adet soğan",
-      "4 diş sarımsak",
-      "Zeytinyağı",
-      "Tuz, şeker"
-    ],
-    instructions: [
-      "Patlıcanları soyun ve tuzlu suda bekletin.",
-      "Soğan ve sarımsağı doğrayın, kavurun.",
-      "Domatesleri rendeleyin ve ekleyin.",
-      "Patlıcanları kızartın ve içine harcı doldurun.",
-      "Fırında 40 dakika pişirin."
-    ],
-    comments: [
-      { user: "Fatma", text: "Annemin yaptığı gibi oldu!" },
-      { user: "Ali", text: "Fırın sıcaklığı tam kac derece olmalı?" }
-    ]
-  },
-  {
     id: 3,
     name: "Sütlaç",
     category: "Tatlılar",

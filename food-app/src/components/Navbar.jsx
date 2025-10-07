@@ -35,6 +35,7 @@ function Navbar() {
             <>
               <li><Link to="/login">Giriş</Link></li>
               <li><Link to="/register">Kayıt Ol</Link></li>
+              <li><Link to="/admin">admin</Link></li>
             </>
           )}
         </ul>

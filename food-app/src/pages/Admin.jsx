@@ -109,11 +109,11 @@ function Admin() {
         <form onSubmit={handleLoginSubmit} style={{ display: 'grid', gap: '1rem' }}>
           <div>
             <label>Kullanıcı Adı</label>
-            <input name="username" value={login.username} onChange={handleLoginChange} placeholder="ulvi" />
+            <input name="username" value={login.username} onChange={handleLoginChange} />
           </div>
           <div>
             <label>Parola</label>
-            <input type="password" name="password" value={login.password} onChange={handleLoginChange} placeholder="12345" />
+            <input type="password" name="password" value={login.password} onChange={handleLoginChange}  />
           </div>
           <div>
             <button type="submit" className="btn" style={{ background: '#111827', color: 'white', padding: '0.75rem 1.25rem', borderRadius: 8 }}>
